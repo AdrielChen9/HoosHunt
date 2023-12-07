@@ -1,0 +1,193 @@
+{% load socialaccount %}
+{% load bootstrap5 %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>User Screen</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap">
+
+  <style>
+    /* html,
+    body {
+      font-family: "Roboto", sans-serif;
+    } */
+
+    .image {
+      display: block;
+      width: 100%;
+      max-height: 50%;
+      margin: 0 auto;
+      position: relative;
+      opacity: 0.85;
+    }
+
+    .text-overlay h2 {
+      font-size: 75px;
+      margin-bottom: 8px;
+    }
+
+    .text-overlay p {
+      font-size: 40px;
+      margin: 0;
+    }
+
+    .box-shadow {
+      box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    }
+
+    .image_container {
+      position: relative;
+      display: inline-block;
+    }
+
+    .text-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 1;
+      color: white;
+    }
+
+    /* .bundles {
+      border: 1px solid #ccc;
+      padding: 20px;
+      text-align: center;
+      border-radius: 10px;
+      background-color: #f0f0f0;
+    } */
+
+    .rules {
+      font-family: 'Space Mono', monospace;
+      display: flex;
+      flex-direction: column;
+      max-width: 800px;
+      padding: 32px;
+      margin: 60px auto;
+      border: 1px solid #eee;
+      box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.06);
+    }
+
+    * {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizelegibility;
+      letter-spacing: -0.25px;
+    }
+
+    ol {
+      padding-left: 50px;
+    }
+
+    li {
+      color: #4F4F4F;
+      padding-left: 16px;
+      margin-top: 24px;
+      position: relative;
+      font-size: 16px;
+      line-height: 20px;
+
+      &:before {
+        content: '';
+        display: block;
+        height: 42px;
+        width: 42px;
+        border-radius: 50%;
+        border: 2px solid #ddd;
+        position: absolute;
+        left: -44px;
+        top: -11px;
+      }
+    }
+
+    strong {
+      color: #292929;
+    }
+
+    li:nth-child(odd)::before {
+      border-color: #F84C1E;
+    }
+
+    li:nth-child(even)::before {
+      border-color: #2378D5;
+    }
+  </style>
+</head>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-theme w3-top w3-left-align w3-large">
+    <a class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large w3-theme-l1"
+      href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+    <a href="{% url 'user' %}" class="w3-bar-item w3-button w3-theme-l1">Home</a>
+    <a href="{% url 'listOfBundles' %}" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Bundles</a>
+    <a href="{% url 'map' %}" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Map</a>
+    <a href="{% url 'leaderboard' %}" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Leaderboard</a>
+    <a href="{% url 'submitClue' %}" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Submit Clue</a>
+    <a href="{% url 'logout' %}" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-right">Log Out</a>
+  </div>
+</div>
+
+<body>
+  <!-- Picture -->
+  <div class="image_container">
+    <img
+      src="https://giving.uvahealth.com/sites/healthfoundation/files/styles/taxonomy_full_width_header_2016_x_630/public/2019-10/rotunda_lawn_sunset_fall_ss_03.jpg?itok=Qr6lvqzl"
+      class="image" alt="Your Image Description">
+    <div class="text-overlay">
+      <h2>Welcome {{ user.username }} <br> to HoosHunt!</h2>
+    </div>
+  </div>
+  <div class="rules">
+
+    <!-- to cite: https://codepen.io/mattc0m/pen/rNdMjKX -->
+    <strong>How to Play:</strong>
+    <ol class="alternating-colors">
+      <li>
+        <strong>Choose your Bundle</strong>
+        <p>We have lots of bundles available, each filled with clues related to the bundle theme!</p>
+      </li>
+      <li>
+        <strong>Debunk the Clue</strong>
+        <p>Each clue correlates to a building that is located in places related to the bundle!</p>
+      </li>
+      <li>
+        <strong>Go to the Location</strong>
+        <p>Make your way to the building you think the clue correlates to!</p>
+      </li>
+      <li>
+        <strong>Check In</strong>
+        <p>Click the check in button under each clue to see if you made it to the correct location! You get 5 attempts
+          for each clue!</p>
+      </li>
+      <li>
+        <strong>Score Points</strong>
+        <p>The amount of points you earn for each clue decreases the more attempts you use! Hints have no impact on your
+          score. Check out the leaderboard to see where you place!</p>
+      </li>
+      <li>
+        <strong>Top the Leaderboard</strong>
+        <p>Check out the leaderboard to see where you place among your schoolmates!</p>
+      </li>
+    </ol>
+    <div class="text-center">
+      <strong>Ready to Play? Choose a Bundle!</strong>
+    </div>
+    <a class="btn btn-primary" href="{% url 'listOfBundles' %}" role="button">Bundles</a>
+  </div>
+</body>
+
+</html>

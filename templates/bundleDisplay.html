@@ -1,0 +1,244 @@
+{% load socialaccount %}
+{% load bootstrap5 %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>User Screen</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <style>
+    /* html,
+    body {
+      font-family: "Roboto", sans-serif;
+    } */
+
+    .image {
+      display: block;
+      width: 100%;
+      max-height: 50%;
+      margin: 0 auto;
+      position: relative;
+      opacity: 0.85;
+    }
+
+    .text-overlay h2 {
+      font-size: 75px;
+      margin-bottom: 8px;
+    }
+
+    .text-overlay p {
+      font-size: 40px;
+      margin: 0;
+    }
+
+    .box-shadow {
+      box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    }
+
+    .image_container {
+      position: relative;
+      display: inline-block;
+    }
+
+    .text-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 1;
+      color: white;
+    }
+
+    /* .bundles {
+      border: 1px solid #ccc;
+      padding: 20px;
+      text-align: center;
+      border-radius: 10px;
+      background-color: #f0f0f0;
+    } */
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <div class="w3-top">
+    <div class="w3-bar w3-theme w3-top w3-left-align w3-large">
+      <a class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large w3-theme-l1"
+        href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+      <a href="{% url 'user' %}" class="w3-bar-item w3-button w3-theme-l1">Home</a>
+      <a href="{% url 'listOfBundles' %}" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Bundles</a>
+      <a href="{% url 'map' %}" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Map</a>
+      <a href="{% url 'leaderboard' %}" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Leaderboard</a>
+      <a href="{% url 'submitClue' %}" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Submit Clue</a>
+      <a href="{% url 'logout' %}" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-right">Log Out</a>
+    </div>
+  </div>
+
+  <!-- Picture -->
+  <div class="image_container">
+    <img
+      src="https://giving.uvahealth.com/sites/healthfoundation/files/styles/taxonomy_full_width_header_2016_x_630/public/2019-10/rotunda_lawn_sunset_fall_ss_03.jpg?itok=Qr6lvqzl"
+      class="image" alt="Your Image Description">
+    <div class="text-overlay">
+      <h2>Bundles</h2>
+      <p>choose an adventure bundle below!</p>
+    </div>
+  </div>
+
+  <!--                        Bundles                -->
+  <!-- to cite: https://mdbootstrap.com/docs/standard/content-styles/hover-effects/
+  https://getbootstrap.com/docs/5.3/examples/album/ -->
+  <div class="album py-5 bg-light">
+    <div class="container">
+      <div class="row mb-4">
+        <div class="col-md-4">
+          <div class="bg-image ripple" data-mdb-ripple-color="light">
+            <img
+              src="https://news.virginia.edu/sites/default/files/article_image/thornton_hall_engineering_fall_ss_header_3-2.jpg"
+              class="w-100" />
+            <a href="{% url 'eWay' %}">
+              <div class="mask" style="background-color: hsla(0, 0%, 0%, 0.4)">
+                <div class="d-flex justify-content-center align-items-center h-100">
+                  <p class="text-white mb-0" style="font-size: 30px;">E-Way</p>
+                </div>
+              </div>
+              <div class="hover-overlay">
+                <div class="mask" style="background-color: hsla(0, 0%,98%, 0.2)"></div>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="bg-image ripple" data-mdb-ripple-color="light">
+            <img
+              src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGZvb2R8ZW58MHx8MHx8fDA%3D"
+              class="w-100" />
+            <a href="{% url 'food' %}">
+              <div class="mask" style="background-color: hsla(0, 0%, 0%, 0.4)">
+                <div class="d-flex justify-content-center align-items-center h-100">
+                  <p class="text-white mb-0" style="font-size: 30px;">Food</p>
+                </div>
+              </div>
+              <div class="hover-overlay">
+                <div class="mask" style="background-color: hsla(0, 0%,98%, 0.2)"></div>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="bg-image ripple" data-mdb-ripple-color="light">
+            <img src="https://news.virginia.edu/sites/default/files/Header_New_Dorms_Aerial__SS_01-2.jpg"
+              class="w-100" />
+            <a href="{% url 'dorms' %}">
+              <div class="mask" style="background-color: hsla(0, 0%, 0%, 0.4)">
+                <div class="d-flex justify-content-center align-items-center h-100">
+                  <p class="text-white mb-0" style="font-size: 30px;">Dorms</p>
+                </div>
+              </div>
+              <div class="hover-overlay">
+                <div class="mask" style="background-color: hsla(0, 0%,98%, 0.2)"></div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-md-4">
+          <div class="bg-image ripple" data-mdb-ripple-color="light">
+            <img
+              src="https://images.unsplash.com/photo-1494059980473-813e73ee784b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cHV6emxlfGVufDB8fDB8fHww"
+              class="w-100" />
+            <a href="#!">
+              <div class="mask" style="background-color: hsla(0, 0%, 0%, 0.4)">
+                <div class="d-flex justify-content-center align-items-center h-100">
+                  <p class="text-white mb-0" style="font-size: 30px;">Random</p>
+                </div>
+              </div>
+              <div class="hover-overlay">
+                <div class="mask" style="background-color: hsla(0, 0%,98%, 0.2)"></div>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="bg-image ripple" data-mdb-ripple-color="light">
+            <img
+              src="https://images.unsplash.com/photo-1535232843222-a40c29436fd3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjN8fGV1cm9wZSUyMHRvdXJpc3R8ZW58MHx8MHx8fDA%3D"
+              class="w-100" />
+            <a href="{% url 'spotsToVisit' %}">
+              <div class="mask" style="background-color: hsla(0, 0%, 0%, 0.4)">
+                <div class="d-flex justify-content-center align-items-center h-100">
+                  <p class="text-white mb-0" style="font-size: 30px;">Spots to Visit</p>
+                </div>
+              </div>
+              <div class="hover-overlay">
+                <div class="mask" style="background-color: hsla(0, 0%,98%, 0.2)"></div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="bg-image ripple" data-mdb-ripple-color="light">
+            <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/053.webp" class="w-100" />
+            <a href="#!">
+              <div class="mask" style="background-color: hsla(0, 0%, 0%, 0.4)">
+                <div class="d-flex justify-content-center align-items-center h-100">
+                  <p class="text-white mb-0" style="font-size: 30px;">Mystery</p>
+                </div>
+              </div>
+              <div class="hover-overlay">
+                <div class="mask" style="background-color: hsla(0, 0%,98%, 0.2)"></div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- E-way Bundle -->
+  <!-- <div class="bundles">
+    <h1 class="w3-text-teal">E-Way Bundle</h1>
+    <p>Related clues for unknown locations on E-Way</p>
+    <a href="{% url 'eWay' %}" class="w3-button w3-teal">Play Now!</a>
+  </div> -->
+  <!-- Spots to Visit Bundle -->
+  <!-- <div class="bundles">
+    <h1 class="w3-text-teal">Spots to Visit</h1>
+    <p>Related clues for popular areas at UVA</p>
+    <a href="{% url 'spotsToVisit' %}" class="w3-button w3-teal">Play Now!</a>
+  </div> -->
+  <!-- Dorms Bundle -->
+  <!-- <div class="bundles">
+    <h1 class="w3-text-teal">Dorms</h1>
+    <p>Related clues for dormitory areas on grounds</p>
+    <a href="{% url 'dorms' %}" class="w3-button w3-teal">Play Now!</a>
+  </div> -->
+  <!--Food Bundle -->
+  <!-- <div class="bundles">
+    <h1 class="w3-text-teal">Food</h1>
+    <p>Related clues for common areas to eat at or around UVA</p>
+    <a href="{% url 'food' %}" class="w3-button w3-teal">Play Now!</a>
+  </div> -->
+  <!--Ignore for right now
+    <div class="w3-col w3-container">
+      <h1 class="w3-text-teal">Welcome, {{user.username}}! This is the User page. Please choose your bundle!</h1>
+    </div> -->
+  <!-- <a href="logout">Logout</a> -->
+</body>
+
+</html>

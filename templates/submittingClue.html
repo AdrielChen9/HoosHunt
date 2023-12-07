@@ -1,0 +1,147 @@
+{% load socialaccount %}
+{% load bootstrap5 %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+<html lang="en">
+
+<head>
+  <title>Submit Clue</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <style>
+    html,
+    body {
+      font-family: "Roboto", sans-serif;
+    }
+
+  </style>
+</head>
+
+<body>
+
+
+  <head>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .content {
+        text-align: center;
+      }
+
+      table {
+        width: 100%;
+        margin-bottom: 20px;
+        border-collapse: collapse;
+      }
+
+      th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      label {
+        display: block;
+      }
+    </style>
+  </head>
+
+  <div class="w3-top">
+    <div class="w3-bar w3-theme w3-top w3-left-align w3-large">
+      <a class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large w3-theme-l1"
+        href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+      <a href="{% url 'user' %}" class="w3-bar-item w3-button w3-theme-l1">Home</a>
+      <a href="{% url 'listOfBundles' %}" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Bundles</a>
+      <a href="{% url 'map' %}" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Map</a>
+      <a href="{% url 'leaderboard' %}" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Leaderboard</a>
+      <a href="{% url 'submitClue' %}" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Submit Clue</a>
+      <a href="{% url 'logout' %}" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-right">Log Out</a>
+    </div>
+  </div>
+
+  <body>
+    <div class="content">
+      {% if user.is_authenticated %}
+      <!-- <p>Welcome, You are logged in as {{ user.username }}</p> -->
+      {% if user.status == 'admin' %}
+      <!-- admin -->
+      <h1>Approve Clues!</h1>
+
+      {% if unapproved_clue_list %}
+        <form method="post">
+          {% csrf_token %}
+          <table class="table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Description</th>
+                <th>Hints</th>
+                <th>Longitude</th>
+                <th>Latitude</th>
+                <th>Bundle</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for clue in unapproved_clue_list %}
+                <tr>
+                  <td>
+                    <label>
+                      <input type="checkbox" name="clue_ids" value="{{ clue.id }}">
+                      Clue {{ clue.id }}
+                    </label>
+                  </td>
+                  <td>{{ clue.description }}</td>
+                  <td>{{ clue.hints }}</td>
+                  <td>{{ clue.longitude }}</td>
+                  <td>{{ clue.latitude }}</td>
+                  <td>{{ clue.bundle }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <button type="submit" class="btn btn-primary">Approve Selected Clues</button>
+        </form>
+      {% else %}
+        <h1>All Clues Have Been Approved!</h1>
+      {% endif %}
+      {% else %}
+      <!-- user -->
+      <div class="container mt-4">
+        <form method="post">
+          {% csrf_token %}
+          <div class="card">
+            <div class="card-header">
+              <h4>Submit a Clue!</h4>
+            </div>
+            <div class="card-body">
+              {{ form.non_form_errors }}
+              {{ form.as_p }}
+              <div class="mt-5 mb-4 d-flex flex-column align-items-center">
+                {% buttons submit='Submit' %}{% endbuttons %}
+                <a href="{% url 'user' %}">Go back to Home Page</a>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      {% endif %}
+      {% else %}
+      <a class="btn btn-primary" href="{% provider_login_url 'google' %}" role="button">Login With Google</a>
+      {% endif %}
+    </div>
+  </body>
+
+
+</html>

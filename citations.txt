@@ -1,0 +1,44 @@
+Sprint 3:
+
+Title: Buttons
+
+Author: Bootstrap
+
+URL: https://getbootstrap.com/docs/5.3/components/buttons/
+
+------------------------------------------------------
+Title:  Using the Django authentication system
+
+Author: Django
+
+URL: https://docs.djangoproject.com/en/4.2/topics/auth/default/
+
+-------------------------------------------------------
+Title: User Registration in Django using Google OAuth
+
+Author:  Geoffrey Mungai Website
+
+URL: https://www.section.io/engineering-education/django-google-oauth/
+
+--------------------------------------------------------
+Title: Django: How can I take the choice in drop-down list and redirect to another page.
+
+Author:  aynber
+
+URL: https://stackoverflow.com/questions/68421837/django-how-can-i-take-the-choice-in-drop-down-list-and-redirect-to-another-page
+
+----------------------------------------------------------
+Title: How to Create a confetti effect in HTML
+
+Author: Dhairya Shah
+
+URL: https://www.dhairyashah.dev/posts/how-to-create-a-confetti-effect-in-html/
+
+______________________________________________________________
+Title: How To Style Figure and Image HTML Elements with CSS
+
+Author: Phillip Zastrow
+
+URL: https://www.digitalocean.com/community/tutorials/how-to-style-figure-and-image-html-elements-with-css
+
+_______________________________________________________________

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Map</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    html,
+    body {
+      font-family: "Roboto", sans-serif;
+    }
+
+    #gmp-map {
+      height: calc(100% - 43px);
+      margin-top: 43px;
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar  {% url 'logout' %} -->
+  <div class="w3-top">
+    <div class="w3-bar w3-theme w3-top w3-left-align w3-large">
+      <a class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large w3-theme-l1"
+        href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+      <a href="{% url 'user' %}" class="w3-bar-item w3-button w3-theme-l1">Home</a>
+      <a href="{% url 'listOfBundles' %}" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Bundles</a>
+      <a href="{% url 'map' %}" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Map</a>
+      <a href="{% url 'leaderboard' %}" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Leaderboard</a>
+      <a href="{% url 'submitClue' %}" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Submit Clue</a>
+      <a href="{% url 'logout' %}" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-right">Log Out</a>
+    </div>
+  </div>
+
+  <head>
+    <title>Simple Marker</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDneIRDYF6yT4znv8Bna7MdOaBZ9IST6s&callback=initMap&libraries=&v=weekly"
+      defer></script>
+    <script>
+      "use strict";
+
+      function initMap() {
+        const myLatLng = {
+          lat: 38.033554,
+          lng: -78.507980
+        };
+        const map = new google.maps.Map(document.getElementById("gmp-map"), {
+          zoom: 15,
+          center: myLatLng,
+          fullscreenControl: false,
+          zoomControl: true,
+          streetViewControl: false
+        });
+        fetch("get_solved_clues/")
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+            // Add markers to the map based on the fetched data
+            data.forEach(clue => {
+              let latitude = parseFloat(clue.latitude);
+              let longitude = parseFloat(clue.longitude);
+              console.log(latitude);
+              console.log(longitude);
+              new google.maps.Marker({
+                position: { lat: latitude, lng: longitude },
+                map,
+                title: "Solved Clue"
+              });
+            });
+          })
+          .catch(error => console.error('Error fetching solved clues:', error));
+      }
+    </script>
+  </head>
+
+  <body>
+    <div id="gmp-map"></div>
+  </body>
+
+</html>
